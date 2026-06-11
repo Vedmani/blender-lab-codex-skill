@@ -1,0 +1,4 @@
+interface:
+  display_name: "Blender Lab"
+  short_description: "Control Blender via the Lab bridge"
+  default_prompt: "Use $blender-lab to inspect and edit the current Blender scene."

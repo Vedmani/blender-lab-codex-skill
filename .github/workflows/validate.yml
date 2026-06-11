@@ -1,0 +1,21 @@
+name: Validate Skill
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Validate exported skill shape
+        run: python3 scripts/validate_skill.py skills/blender-lab
+      - name: Compile wrapper
+        run: PYTHONPYCACHEPREFIX=/tmp/blender-lab-pycache python3 -m py_compile skills/blender-lab/scripts/blender_lab.py
+      - name: Check wrapper dependencies resolve
+        run: uv run skills/blender-lab/scripts/blender_lab.py --help
